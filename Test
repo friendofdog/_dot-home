@@ -104,8 +104,9 @@ mkdir -p  "$build_t_dir"
 cd "$base_dir"
 check_submodules
 export EXPECTED_BASH_VERSINFO='-ge 4'
-if [ _"$1" = _-3 ]; then        # Test with Bash 3 and other old tools
-    shift
+# Test with Bash 3 and other old tools
+if [[ _"$1" = _-3  ||  $(uname) = Darwin ]]; then
+    [ $1 ] && shift
     EXPECTED_BASH_VERSINFO='-eq 3'
     [[ $(uname) == Darwin ]] || {
         build_3tools "$build_dir/local"
